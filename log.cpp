@@ -96,7 +96,7 @@ void InitLog()
     backend1->auto_flush(true);
     boost::shared_ptr<TextSink> sink1(new TextSink(backend1));
     sink1->set_formatter(  //日志输出格式
-            expr::format("[%1%] [ThreadID: %2%] <%3%>: %4%")
+            expr::format("[%1%] [ThreadID: %2%] [%3%]: %4%")
             //% expr::attr<unsigned int>("LineID") //日志行数
             % expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
             % expr::attr<attrs::current_thread_id::value_type>("ThreadID")
@@ -113,7 +113,7 @@ void InitLog()
     core->add_sink(sink2);
     sink2->set_filter(expr::attr<sign_severity_level>("Severity") >= trace);
     sink2->set_formatter(
-            expr::format("[%1%] [ThreadID: %2%] <%3%>: %4%")
+            expr::format("[%1%] [ThreadID: %2%] [%3%]: %4%")
             % expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
             % expr::attr<attrs::current_thread_id::value_type>("ThreadID")
             % expr::attr<sign_severity_level>("Severity")//日志等级
